@@ -2924,6 +2924,35 @@ elseif(N3DS)
   set(HAVE_SDL_LOCALE TRUE)
 
   sdl_glob_sources("${SDL3_SOURCE_DIR}/src/io/n3ds/*.c")
+elseif(NINTENDO_DS)
+  set(__NDS__)
+
+  sdl_glob_sources("${SDL3_SOURCE_DIR}/src/main/nds/*.c")
+
+  set(SDL_THREAD_NDS 1)
+  add_compile_definitions(-DSDL_THREAD_NDS)
+  sdl_glob_sources("${SDL3_SOURCE_DIR}/src/thread/nds/*.c")
+  sdl_sources(
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_systhread.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syssem.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syscond.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syscond.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_systls.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_sysrwlock.c"
+    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_sysmutex.c"
+  )
+  set(HAVE_SDL_THREADS TRUE)
+
+  add_compile_definitions(-DSDL_TIMER_NDS)
+  sdl_glob_sources("${SDL3_SOURCE_DIR}/src/timer/nds/*.c")
+  set(HAVE_SDL_TIMERS TRUE)
+
+  if(SDL_VIDEO)
+    add_compile_definitions(-DSDL_VIDEO_DRIVER_NDS)
+    sdl_glob_sources("${SDL3_SOURCE_DIR}/src/video/nds/*.c")
+    set(HAVE_SDL_VIDEO TRUE)
+  endif()
+  
 endif()
 
 sdl_sources(${SDL3_SOURCE_DIR}/src/dialog/SDL_dialog.c)

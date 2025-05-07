@@ -473,4 +473,14 @@
 #define SDL_PLATFORM_3DS 1
 #endif
 
+#ifdef __NDS__
+
+/**
+ * A preprocessor macro that is only defined if compiling for Nintendo DS.
+ *
+ * \since This macro is available since SDL 3.2.10.
+ */
+#define SDL_PLATFORM_NDS 1
+#endif
+
 #endif /* SDL_platform_defines_h_ */

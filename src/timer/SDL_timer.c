@@ -23,6 +23,10 @@
 #include "SDL_timer_c.h"
 #include "../thread/SDL_systhread.h"
 
+#if defined(SDL_PLATFORM_NDS)
+    #include <nds.h>
+#endif
+
 // #define DEBUG_TIMERS
 
 #if !defined(SDL_PLATFORM_EMSCRIPTEN) || !defined(SDL_THREADS_DISABLED)
@@ -588,6 +592,11 @@ void SDL_InitTicks(void)
     if (tick_start) {
         return;
     }
+
+    #if defined(SDL_PLATFORM_NDS)
+        /* Start the CPU timer on Timer 0 */
+        cpuStartTiming(0);
+    #endif  
 
     /* If we didn't set a precision, set it high. This affects lots of things
        on Windows besides the SDL timers, like audio callbacks, etc. */

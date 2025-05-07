@@ -1176,7 +1176,7 @@ SDL_COMPILE_TIME_ASSERT(two_s_complement, (int)~(int)0 == (int)(-1));
 
 /** \cond */
 #ifndef DOXYGEN_SHOULD_IGNORE_THIS
-#if !defined(SDL_PLATFORM_VITA) && !defined(SDL_PLATFORM_3DS)
+#if !defined(SDL_PLATFORM_VITA) && !defined(SDL_PLATFORM_3DS) && !defined(SDL_PLATFORM_NDS)
 /* TODO: include/SDL_stdinc.h:390: error: size of array 'SDL_dummy_enum' is negative */
 typedef enum SDL_DUMMY_ENUM
 {
