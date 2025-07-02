@@ -478,7 +478,7 @@ bool SDL_SetLogPriorityPrefix(SDL_LogPriority priority, const char *prefix)
 void SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...)
 {
     va_list ap;
-
+    
     va_start(ap, fmt);
     SDL_LogMessageV(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, fmt, ap);
     va_end(ap);
@@ -762,6 +762,15 @@ static void SDLCALL SDL_LogOutput(void *userdata, int category, SDL_LogPriority 
     {
         FILE *pFile;
         pFile = fopen("sdmc:/3ds/SDL_Log.txt", "a");
+        if (pFile) {
+            (void)fprintf(pFile, "%s%s\n", GetLogPriorityPrefix(priority), message);
+            (void)fclose(pFile);
+        }
+    }
+#elif defined(SDL_PLATFORM_NDS)
+    {
+        FILE *pFile;
+        pFile = fopen("fat:/_nds/SDL_Log.txt", "a");
         if (pFile) {
             (void)fprintf(pFile, "%s%s\n", GetLogPriorityPrefix(priority), message);
             (void)fclose(pFile);

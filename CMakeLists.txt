@@ -2933,13 +2933,12 @@ elseif(NINTENDO_DS)
   add_compile_definitions(-DSDL_THREAD_NDS)
   sdl_glob_sources("${SDL3_SOURCE_DIR}/src/thread/nds/*.c")
   sdl_sources(
-    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_systhread.c"
-    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syssem.c"
-    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syscond.c"
+    # "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_systhread.c"
+    # "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syssem.c"
     "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_syscond.c"
     "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_systls.c"
     "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_sysrwlock.c"
-    "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_sysmutex.c"
+    # "${SDL3_SOURCE_DIR}/src/thread/generic/SDL_sysmutex.c"
   )
   set(HAVE_SDL_THREADS TRUE)
 
