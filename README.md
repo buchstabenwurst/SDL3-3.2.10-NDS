@@ -1,3 +1,12 @@
+SDL3 Port for the Nintendo DS
+Currently threads are broken witch breaks evrything
+build using blocksds
+``` bash
+cmake -B build -S. --install-prefix /opt/wonderful/thirdparty/blocksds/external/SDL3 -DCMAKE_TOOLCHAIN_FILE=/opt/wonderful/thirdparty/blocksds/core/cmake/BlocksDS.cmake --fresh
+cmake --build build && cmake --install build
+```
+
+---
 
 Simple DirectMedia Layer (SDL for short) is a cross-platform library
 designed to make it easy to write multi-media software, such as games
