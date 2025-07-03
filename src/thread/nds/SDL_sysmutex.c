@@ -35,11 +35,7 @@ SDL_Mutex *SDL_CreateMutex(void)
     
     #ifndef SDL_THREADS_DISABLED
     if (mutex) {
-        // Create the mutex semaphore, with initial value 1
-        comutex_t ab;
-        // SDL_Log("sysmutex 1");
         bool res = comutex_init(&mutex->mutex);
-        // SDL_Log("sysmutex 2");
         if (!res) {
             // SDL_Log("sysmutex error");
             SDL_free(mutex);
@@ -53,12 +49,10 @@ SDL_Mutex *SDL_CreateMutex(void)
 
 void SDL_DestroyMutex(SDL_Mutex *mutex)
 {
-    // if (mutex) {
-    //     if (mutex->sem) {
-    //         SDL_DestroySemaphore(mutex->sem);
-    //     }
-    //     SDL_free(mutex);
-    // }
+    if (mutex) {
+        comutex_release(&mutex->mutex);
+        // SDL_free(mutex);
+    }
 }
 
 void SDL_LockMutex(SDL_Mutex *mutex) SDL_NO_THREAD_SAFETY_ANALYSIS  // clang doesn't know about NULL mutexes
