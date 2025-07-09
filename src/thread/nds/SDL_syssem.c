@@ -75,7 +75,8 @@ SDL_Semaphore *SDL_CreateSemaphore(Uint32 initial_value)
     sem->count_lock = SDL_CreateMutex();
     // creates infinite loop???
     // sem->count_nonzero = SDL_CreateCondition();
-if (!sem->count_lock || !sem->count_nonzero) {
+    // if (!sem->count_lock || !sem->count_nonzero) {
+    if (!sem->count_lock) {
         SDL_DestroySemaphore(sem);
         return NULL;
     }
