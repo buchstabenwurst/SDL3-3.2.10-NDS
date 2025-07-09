@@ -52,7 +52,7 @@ bool SDL_NDS_CreateWindowFramebuffer(SDL_VideoDevice *_this, SDL_Window *window,
 
     SDL_NDS_DestroyWindowFramebuffer(_this, window);
 
-    bgMain = bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0,0);
+    bgMain = bgInit(3, BgType_Bmp8, BgSize_B16_256x256, 0,0);
 
     mode = SDL_GetCurrentDisplayMode(SDL_GetDisplayForWindow(window));
     SDL_GetWindowSizeInPixels(window, &w, &h);
@@ -81,6 +81,11 @@ bool SDL_NDS_UpdateWindowFramebuffer(SDL_VideoDevice *_this, SDL_Window *window,
     if (!surface) {
         return SDL_SetError("%s: Unable to get the window surface.", __func__);
     }
+    surface->w=256;
+    surface->h=192;
+    width=256;
+    height=192;
+
 
     // Get the NDS internal framebuffer and its size
     // framebuffer = gfxGetFramebuffer(drv_data->screen, GFX_LEFT, &width, &height);
@@ -109,6 +114,7 @@ static void CopyFramebuffertoNDS_16(u16 *dest, const Dimensions dest_dim, const 
             const u16 *s = source + GetSourceOffset(x, y, source_dim.width);
             u16 *d = dest + GetDestOffset(x, y, dest_dim.width);
             *d = *s;
+            // *d = RGB15(255,255,255);
         }
     }
 }

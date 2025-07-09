@@ -81,8 +81,6 @@ static bool PS2_VideoInit(SDL_VideoDevice *_this)
     videoSetMode(MODE_5_2D);
     vramSetBankA(VRAM_A_MAIN_BG);
 
-    SDL_Log("Amogus");
-
     SDL_AddBasicVideoDisplay(&mode);
 
     return true;
