@@ -72,11 +72,11 @@ static bool PS2_VideoInit(SDL_VideoDevice *_this)
 
     SDL_zero(mode);
     mode.w = 256;
-    mode.h = 256;
+    mode.h = 192;
     mode.refresh_rate = 60.0f;
 
     // 32 bpp for default
-    mode.format = SDL_PIXELFORMAT_ARGB4444;
+    mode.format = SDL_PIXELFORMAT_XBGR1555;
 
     videoSetMode(MODE_5_2D);
     vramSetBankA(VRAM_A_MAIN_BG);

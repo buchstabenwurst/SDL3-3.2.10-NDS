@@ -52,7 +52,7 @@ bool SDL_NDS_CreateWindowFramebuffer(SDL_VideoDevice *_this, SDL_Window *window,
 
     SDL_NDS_DestroyWindowFramebuffer(_this, window);
 
-    bgMain = bgInit(3, BgType_Bmp8, BgSize_B16_256x256, 0,0);
+    bgMain = bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0,0);
 
     mode = SDL_GetCurrentDisplayMode(SDL_GetDisplayForWindow(window));
     SDL_GetWindowSizeInPixels(window, &w, &h);
@@ -81,8 +81,6 @@ bool SDL_NDS_UpdateWindowFramebuffer(SDL_VideoDevice *_this, SDL_Window *window,
     if (!surface) {
         return SDL_SetError("%s: Unable to get the window surface.", __func__);
     }
-    surface->w=256;
-    surface->h=192;
     width=256;
     height=192;
 
@@ -107,14 +105,13 @@ bool SDL_NDS_UpdateWindowFramebuffer(SDL_VideoDevice *_this, SDL_Window *window,
 
 static void CopyFramebuffertoNDS_16(u16 *dest, const Dimensions dest_dim, const u16 *source, const Dimensions source_dim)
 {
-    int rows = SDL_min(dest_dim.width, source_dim.height);
-    int cols = SDL_min(dest_dim.height, source_dim.width);
+    int rows = SDL_max(dest_dim.width, source_dim.height);
+    int cols = SDL_max(dest_dim.height, source_dim.width);
     for (int y = 0; y < rows; ++y) {
         for (int x = 0; x < cols; ++x) {
-            const u16 *s = source + GetSourceOffset(x, y, source_dim.width);
-            u16 *d = dest + GetDestOffset(x, y, dest_dim.width);
-            *d = *s;
-            // *d = RGB15(255,255,255);
+            const u16 *s = source + GetSourceOffset(y, x, source_dim.width);
+            u16 *d = dest + GetDestOffset(x, 255-y, dest_dim.width);
+            *d = *s ^ 0b1000000000000000;
         }
     }
 }
