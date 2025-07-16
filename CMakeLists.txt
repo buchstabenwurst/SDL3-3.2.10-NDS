@@ -2951,6 +2951,12 @@ elseif(NINTENDO_DS)
     sdl_glob_sources("${SDL3_SOURCE_DIR}/src/video/nds/*.c")
     set(HAVE_SDL_VIDEO TRUE)
   endif()
+
+  if(SDL_JOYSTICK)
+    add_compile_definitions(-DSDL_JOYSTICK_NDS)
+    sdl_glob_sources("${SDL3_SOURCE_DIR}/src/joystick/nds/*.c")
+    set(HAVE_SDL_JOYSTICK TRUE)
+  endif()
   
 endif()
 
